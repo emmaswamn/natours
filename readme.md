@@ -5,7 +5,7 @@ This is a complete full-stack application with a RESTful API and a server-side r
 
 ## Bugs and Delays
 ### Pending
-    * None at the moment
+    *None at the moment
 
 ## Possible Improvements
     - [x] Implement a sign up form
