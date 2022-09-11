@@ -25,14 +25,14 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
-// Serving static files
-// app.use(express.static(`${__dirname}/public`));
-app.use(express.static(path.join(__dirname, 'public')));
-
 // Set security HTTP headers
 // CORS policy
 app.use(cors());
 app.options('*', cors());
+
+// Serving static files
+// app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Further HELMET configuration for Content Security Policy (CSP)
 // Source: https://github.com/helmetjs/helmet
