@@ -46,7 +46,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     });
 
     const url = `${req.protocol}://${req.get('host')}/me`;
-    console.log(url);
+    // console.log(url);
     await new Email(newUser, url).sendWelcome();
 
     // let url = 'http://127.0.0.1:3000/me';
@@ -59,7 +59,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
-    console.log('req.body', req.body);
+    // console.log('req.body', req.body);
 
     // 1) Check if email and password exist(in req)
     if (!email || !password) {

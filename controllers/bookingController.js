@@ -47,7 +47,7 @@ exports.createBookingCheckout = catchAsync(async (req, res, next) => {
     // temporary not secure way
     const { tour, user, price } = req.query;
 
-    console.log(tour);
+    // console.log(tour);
 
     if (!tour && !user && !price) return next();
     await Booking.create({ tour, user, price });
