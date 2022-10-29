@@ -18,6 +18,7 @@ const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoute');
 const bookingController = require('./controllers/bookingController');
+const authRouter = require('./routes/authRoute');
 
 const app = express();
 
@@ -149,6 +150,7 @@ app.use((req, res, next) => {
 
 // 3) ROUTES
 app.use('/', viewRouter);
+app.use('/api/v1', authRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);

@@ -25,3 +25,14 @@ English:https://dev.to/emmaswamn/basic-usage-of-insomnia-4ibl
 - Implement maximum login attempts
 - Implement two-factor authentication
 - Implement the "Manage" page for administrators to CRUD tours, users, reviews and bookings
+
+#### Concurrently
+
+- front-end and backend (server)
+- run separate terminals
+- [concurrently](https://www.npmjs.com/package/concurrently)
+
+```sh
+npm install concurrently --save-dev
+
+```

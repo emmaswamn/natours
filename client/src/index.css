@@ -21,6 +21,8 @@
   box-sizing: inherit;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,700');
+
 html {
   font-size: 62.5%;
   -webkit-box-sizing: border-box;
@@ -28,6 +30,7 @@ html {
 }
 
 body {
+  min-width: 1300px;
   line-height: 1.6;
   font-weight: 300;
   font-family: 'Lato', sans-serif;
@@ -1153,6 +1156,7 @@ body {
   -ms-flex-align: center;
   align-items: center;
 }
+
 .card__data svg {
   margin-right: 0.7rem;
 }

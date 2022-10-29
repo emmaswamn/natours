@@ -36,16 +36,16 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 
     req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
-    const image = await sharp(req.file.buffer)
+    await sharp(req.file.buffer)
         .resize(500, 500)
         .toFormat('jpeg')
         .jpeg({ quality: 90 })
-        // .toFile(`public/img/users/${req.file.filename}`);
-        .toFile(`${req.file.filename}`, (err, info) => {
-            console.log('err', err);
-            console.log('info', info);
-        });
-    console.log(image);
+        .toFile(`public/img/users/${req.file.filename}`);
+    //     .toFile(`${req.file.filename}`, (err, info) => {
+    //         console.log('err', err);
+    //         console.log('info', info);
+    //     });
+    // console.log(image);
     next();
 });
 
