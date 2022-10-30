@@ -10,7 +10,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    console.count('home');
+    // console.count('home');
     dispatch(getAllTours());
   },[])
   const {allTours} = useSelector((store) => store.tour);

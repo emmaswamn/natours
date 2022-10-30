@@ -5,7 +5,7 @@ import {userLogout} from '../features/auth/authSlice';
 // import { useNavigate } from 'react-router-dom';
 // import { getLogStatu } from '../features/auth/authSlice';
 // import { useEffect } from 'react';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 
 const Header = () => {
@@ -36,7 +36,6 @@ const Header = () => {
 
 const Logout = ({photo, username}) => {
 
-    // const [trig, setTrig] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -48,12 +47,6 @@ const Logout = ({photo, username}) => {
 
     };
 
-    // useEffect(() => {
-    //     if(trig) {
-    //         console.log('trig');
-    //         dispatch(userLogout());
-    //     }
-    // },[trig]);
     
     return (
         <>
