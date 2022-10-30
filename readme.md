@@ -9,12 +9,6 @@ check my blog.
 Chinese:https://juejin.cn/post/7148715672250351646/  
 English:https://dev.to/emmaswamn/basic-usage-of-insomnia-4ibl
 
-## Bugs and Delays
-
-### Pending
-
-- None at the moment
-
 ## Possible Improvements
 
 :white_check_mark: Implement a sign up form
@@ -36,3 +30,44 @@ English:https://dev.to/emmaswamn/basic-usage-of-insomnia-4ibl
 npm install concurrently --save-dev
 
 ```
+
+## Bugs and Delays
+
+- React Warning
+
+```js
+// Warning: Cannot update a component (`Header`) while rendering a different component
+function App() {
+  const dispatch = useDispatch();
+
+  const { isLoggedIn } = useSelector((store) => store.auth);
+  // 问题1，使用diapatch login 和 dispatch logout之后会返回首页
+  // 触发 dispatch(getLogStatu()) rerender App；
+  // login 和 logout 使 isLoggedIn 触发rerender Header与 rerender App冲突
+
+  // 方法1，Stackover flow 里的建议是用useEffect 包裹dispatch
+  // 包裹 dispatch(getLogStatu())， 由于useEffect里的代码在render之后运行
+  // 所以 isLoggedIn 初始值是 false
+  // 所有protectedroute 会在刷新后回到首页
+
+  // 方法2
+  // 阻止 login 触发 dispatch(getLogStatu())
+  // if(!isLoggedIn) dispatch(getLogStatu()); login后不会触发
+  // 但是在首页logout仍会触发
+  // 使用useMemo,仅当 isLoggedIn 变化时才会运行函数， 但不会发生render冲突
+  // 非首页logout 会进入not found页面
+
+  const getLog = () => {
+    if(!isLoggedIn) {
+      console.count('app');
+      dispatch(getLogStatu())
+    };
+  };
+
+  const getLog2 = useMemo(() => getLog(), [isLoggedIn]);
+
+```
+
+### Pending
+
+- None at the moment

@@ -4,8 +4,10 @@ import { useEffect } from 'react';
 import { getAllTours } from '../features/tours/tourSlice'
 
 
+
 const Home = () => {
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     console.count('home');

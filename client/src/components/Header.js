@@ -2,14 +2,21 @@ import { Link } from 'react-router-dom';
 import { useSelector} from 'react-redux';
 import { useDispatch } from "react-redux";
 import {userLogout} from '../features/auth/authSlice';
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+// import { getLogStatu } from '../features/auth/authSlice';
+// import { useEffect } from 'react';
+import { useState } from 'react';
 
 
 const Header = () => {
-    
+    // const dispatch = useDispatch();
     const { isLoggedIn } = useSelector((store) => store.auth);
     const {username, photo} = useSelector((store) => store.user);
+    // console.log(username);
+    // useEffect(() => {
+    //     dispatch(getLogStatu());
+    //     console.count('header');
+    //   },[])
 
     return (
         <header className='header'>
@@ -28,20 +35,29 @@ const Header = () => {
 };
 
 const Logout = ({photo, username}) => {
-    const [isload, setIsload] = useState(false);
+
+    // const [trig, setTrig] = useState(false);
+
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const handleLogout = () => {
-        setIsload(true);
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+
+        console.log('header');
         dispatch(userLogout());
-        setTimeout(() => {
-            navigate('/');
-        }, 1500);
-        setIsload(false);
+
     };
+
+    // useEffect(() => {
+    //     if(trig) {
+    //         console.log('trig');
+    //         dispatch(userLogout());
+    //     }
+    // },[trig]);
+    
     return (
         <>
-            <button className='nav__el nav__el--logout' disabled={isload} onClick={handleLogout}>
+            <button className='nav__el nav__el--logout' onClick={handleLogout}>
                 Log out
             </button>
             <Link className='nav__el' to='/me'>

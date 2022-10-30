@@ -4,6 +4,7 @@ const Tour = (tour) => {
     const date = new Date(tour.startDates[0]);
     const options = {month: 'long', year: 'numeric'};
     const firstStartDate = Intl.DateTimeFormat('en-us',options).format(date);
+    // console.log(tour._id);
     return (
         <div className='card'>
             <div className='card__header'>
@@ -71,7 +72,7 @@ const Tour = (tour) => {
                     <span className='card__footer-value'>{tour.ratingsAverage}</span>
                     <span className='card__footer-text'> {`rating (${tour.ratingsQuantity})`}</span>
                 </p>
-                <Link className='btn btn--green btn--small' to={`/tour/${tour.slug}`}>Details</Link>
+                <Link className='btn btn--green btn--small' to={`/tour/${tour._id}`}>Details</Link>
             </div>
         </div>
     );

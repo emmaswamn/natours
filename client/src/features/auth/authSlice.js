@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import request from '../../axios/custom';
-import {addUser, clearUser} from '../user/userSlice';
+import {addUser, clearUser, saveLocalUser, getLocalUser, deleteLocalUser} from '../user/userSlice';
 import { controlAlert} from '../alert/alertSlice'
 
-const initialState = {
-    isLoggedIn:false,
-};
 
+const initialState = {
+    isLoggedIn:false
+};
 
 
 
@@ -14,10 +14,19 @@ export const getLogStatu = createAsyncThunk('auth/getLogStatu', async(_,thunkAPI
     try {
         // console.log(name);
         
+        thunkAPI.dispatch(getLocalUser());
+        // console.log('authlog', thunkAPI.getState().auth.isLoggedIn);
+        if(thunkAPI.getState().auth.isLoggedIn) {
+            // console.log('work');
+            return;
+        }
+
         const resp = await request('/api/v1');
         // console.log('getLogStatu',resp.data.data);
         // console.log(thunkAPI);
         thunkAPI.dispatch(addUser(resp.data.data));
+        thunkAPI.dispatch(saveLocalUser(resp.data.data));
+        
         return resp.data;
     } catch (err) {
         
@@ -33,8 +42,11 @@ export const userLogin = createAsyncThunk('auth/userLogin', async(userinfo, thun
             email: userinfo.email,
             password: userinfo.password
         });
-        console.log(resp.data.data.user);
+        // console.log(resp.data.data.user);
         thunkAPI.dispatch(addUser(resp.data.data.user));
+        thunkAPI.dispatch(saveLocalUser(resp.data.data));
+
+
         thunkAPI.dispatch(controlAlert({type: 'success', message: 'Logged in successfully!'}));
         // useAlert('success', 'Logged in successfully!');
 
@@ -51,6 +63,7 @@ export const userLogout = createAsyncThunk('auth/userLogout', async(_, thunkAPI)
     try {
         await request('/api/v1/users/logout');
         thunkAPI.dispatch(clearUser());
+        thunkAPI.dispatch(deleteLocalUser());
 
     } catch (err) {
         thunkAPI.dispatch(controlAlert({type: 'error', message: 'Error logging out! Try again.'}));
@@ -88,6 +101,6 @@ const authSlice = createSlice({
 });
 
 
-export const {isLogin} = authSlice.actions;
+export const {isLogin, setTimer} = authSlice.actions;
 
 export default authSlice.reducer;

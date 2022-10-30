@@ -1,19 +1,23 @@
 import { useState } from "react";
 import {userLogin} from '../features/auth/authSlice';
 import { useDispatch } from "react-redux";
+import { useSelector} from 'react-redux';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isload, setIsload] = useState(false);
+    const { isLoggedIn } = useSelector((store) => store.auth);
     const dispatch = useDispatch();
     const handleSubmit = async (e) =>{
         e.preventDefault();
         setIsload(true);
         dispatch(userLogin({email,password}));
-        // console.log('resu', result);
-        setIsload(false);
-    }
+        // console.log('1');
+        if (!isLoggedIn){ 
+            setIsload(false)
+        };
+    };
     return (
         <main className='main'>
             <div className='login-form'>
