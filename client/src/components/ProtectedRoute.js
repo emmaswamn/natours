@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children, isLoggedin }) => {
     }
 
     if (!isLoggedin) {
-        return <Navigate to='/notfound' />;
+      return <Navigate to='/notfound' />;
     }
 
     if(isLoggedin && children.type.name === 'Login') {

@@ -57,6 +57,11 @@ function App() {
   // 使用useMemo,仅当 isLoggedIn 变化时才会运行函数， 但不会发生render冲突
   // 非首页logout 会进入not found页面
 
+  // 方法2.1
+  // 有的时候会发生，有的时候不会发生，所以我给了protect router一个延迟
+  // 有1s的时间再返回'/' 无效
+  // 在app 首次logout 会warning, 非首次不会warning
+
   const getLog = () => {
     if(!isLoggedIn) {
       console.count('app');

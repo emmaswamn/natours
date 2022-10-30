@@ -1,7 +1,7 @@
 import icons from '../../../assets/img/icons.svg'
 
 const ReviewSec = ({tour}) => {
-    console.log(tour.reviews);
+    // console.log(tour.reviews);
     return (
         <section className='section-reviews'>
             <div className="reviews">

@@ -15,6 +15,11 @@ function App() {
 
   const { isLoggedIn } = useSelector((store) => store.auth);
 
+  // if(!isLoggedIn) {
+  //   console.count('app');
+  //   dispatch(getLogStatu())
+  // };
+
   const getLog = () => {
     if(!isLoggedIn) {
       console.count('app');
