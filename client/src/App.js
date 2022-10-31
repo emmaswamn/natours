@@ -4,30 +4,39 @@ import Login from './pages/Login'
 import SharedLayout from './pages/SharedLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import SingleTour from './pages/tour/SingleTour';
+import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 import { useSelector, useDispatch} from 'react-redux';
-import { getLogStatu } from './features/auth/authSlice'
-// import { useEffect } from 'react';
-import { useMemo } from 'react';
+import { getLogStatu, trunOfffirst } from './features/auth/authSlice'
+import { useEffect } from 'react';
+// import { useMemo } from 'react';
 
 function App() {
   const dispatch = useDispatch();
 
-  const { isLoggedIn } = useSelector((store) => store.auth);
+  const { isLoggedIn, firstLoad } = useSelector((store) => store.auth);
 
-  // if(!isLoggedIn) {
-  //   console.count('app');
-  //   dispatch(getLogStatu())
-  // };
-
-  const getLog = () => {
-    if(!isLoggedIn) {
-      console.count('app');
-      dispatch(getLogStatu())
-    };
+  if(!isLoggedIn && firstLoad) {
+    console.count('first');
+    dispatch(getLogStatu());
+    dispatch(trunOfffirst());
   };
 
-  const getLog2 = useMemo(() => getLog(), [isLoggedIn]);
+  useEffect(() => {
+    if(!isLoggedIn) {
+      console.count('app');
+      dispatch(getLogStatu());
+    };
+  })
+
+  // const getLog = () => {
+  //   if(!isLoggedIn) {
+  //     console.count('app');
+  //     dispatch(getLogStatu())
+  //   };
+  // };
+
+  // const getLog2 = useMemo(() => getLog(), [isLoggedIn]);
  
   console.log('aoolog',isLoggedIn);
   return (
@@ -47,12 +56,13 @@ function App() {
             </ProtectedRoute>
           } 
         />
-        {/* <Route path='tour/:tourId' element={
-
-              <SingleTour />
- 
+        <Route path='signup' element={
+            <ProtectedRoute isLoggedin={isLoggedIn}>
+              <Signup />
+            </ProtectedRoute>
           } 
-        /> */}
+        />
+
         <Route path='notfound' element={<NotFound />} />
       </Route>
       {/* <Route

@@ -40,36 +40,33 @@ npm install concurrently --save-dev
 function App() {
   const dispatch = useDispatch();
 
-  const { isLoggedIn } = useSelector((store) => store.auth);
-  // 问题1，使用diapatch login 和 dispatch logout之后会返回首页
+  const { isLoggedIn, firstLoad } = useSelector((store) => store.auth);
+
+  if(!isLoggedIn && firstLoad) {
+    console.count('first');
+    dispatch(getLogStatu());
+    dispatch(trunOfffirst());
+  };
+
+  useEffect(() => {
+    if(!isLoggedIn) {
+      console.count('app');
+      dispatch(getLogStatu());
+    };
+  })
+  // 问题描述：使用diapatch login 和 dispatch logout之后会返回首页
   // 触发 dispatch(getLogStatu()) rerender App；
   // login 和 logout 使 isLoggedIn 触发rerender Header与 rerender App冲突
 
-  // 方法1，Stackover flow 里的建议是用useEffect 包裹dispatch
-  // 包裹 dispatch(getLogStatu())， 由于useEffect里的代码在render之后运行
+  // 解决思路：Stackover flow 里的建议是用useEffect 包裹dispatch
+  // dispatch(getLogStatu())， 但是useEffect里的代码在render之后运行
   // 所以 isLoggedIn 初始值是 false
   // 所有protectedroute 会在刷新后回到首页
 
-  // 方法2
-  // 阻止 login 触发 dispatch(getLogStatu())
-  // if(!isLoggedIn) dispatch(getLogStatu()); login后不会触发
-  // 但是在首页logout仍会触发
-  // 使用useMemo,仅当 isLoggedIn 变化时才会运行函数， 但不会发生render冲突
-  // 非首页logout 会进入not found页面
-
-  // 方法2.1
-  // 有的时候会发生，有的时候不会发生，所以我给了protect router一个延迟
-  // 有1s的时间再返回'/' 无效
-  // 在app 首次logout 会warning, 非首次不会warning
-
-  const getLog = () => {
-    if(!isLoggedIn) {
-      console.count('app');
-      dispatch(getLogStatu())
-    };
-  };
-
-  const getLog2 = useMemo(() => getLog(), [isLoggedIn]);
+  // 解决方法：
+  // 1. 添加 firstLoad 变量， 我们只需要首次载入的时候，在render之前发起请求
+  // 2. 用useEffect包裹请求，非首次载入时，触发这个请求
+  // 目前没有找到比这个干净的方法。
 
 ```
 

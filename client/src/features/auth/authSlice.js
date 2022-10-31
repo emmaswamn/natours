@@ -5,7 +5,8 @@ import { controlAlert} from '../alert/alertSlice'
 
 
 const initialState = {
-    isLoggedIn:false
+    isLoggedIn:false,
+    firstLoad: true
 };
 
 
@@ -78,6 +79,9 @@ const authSlice = createSlice({
     reducers: {
         isLogin: (state) => {
             state.isLoggedIn = true;
+        },
+        trunOfffirst: (state) => {
+            state.firstLoad = false;
         }
     },
     extraReducers: {
@@ -101,6 +105,6 @@ const authSlice = createSlice({
 });
 
 
-export const {isLogin, setTimer} = authSlice.actions;
+export const {isLogin, setTimer, trunOfffirst} = authSlice.actions;
 
 export default authSlice.reducer;
