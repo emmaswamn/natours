@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useSelector} from 'react-redux';
 import { useDispatch } from "react-redux";
 import {userLogout} from '../features/auth/authSlice';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import { getLogStatu } from '../features/auth/authSlice';
 // import { useEffect } from 'react';
 // import { useState } from 'react';
@@ -28,7 +28,7 @@ const Header = () => {
             </div>
             <nav className='nav nav--user'>
                 {isLoggedIn && username && <Logout username={username} photo={photo}/>}
-                {!isLoggedIn && !username && <Login />}
+                {!isLoggedIn && !username  && <Login />}
             </nav>
         </header>
     )
@@ -38,11 +38,12 @@ const Logout = ({photo, username}) => {
 
 
     const dispatch = useDispatch();
+    // let navigate = useNavigate();
 
     const handleLogout = (e) => {
         e.preventDefault();
 
-        console.log('header');
+        console.log('logout');
         dispatch(userLogout());
 
     };

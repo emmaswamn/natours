@@ -60,6 +60,7 @@ userSchema.pre('save', async function(next) {
 
     // Delete passwordConfirm field
     this.passwordConfirm = undefined;
+
     next();
 });
 

@@ -14,8 +14,9 @@ const initialState = {
 export const getLogStatu = createAsyncThunk('auth/getLogStatu', async(_,thunkAPI) => {
     try {
         // console.log(name);
-        
+
         thunkAPI.dispatch(getLocalUser());
+
         // console.log('authlog', thunkAPI.getState().auth.isLoggedIn);
         if(thunkAPI.getState().auth.isLoggedIn) {
             // console.log('work');
@@ -60,11 +61,39 @@ export const userLogin = createAsyncThunk('auth/userLogin', async(userinfo, thun
     }
 });
 
+export const userSignup = createAsyncThunk('auth/userSignup', async(userinfo, thunkAPI) => {
+    try {
+        // console.log(thunkAPI);
+        // console.log(userinfo.email,userinfo.password);
+        const resp = await request.post('/api/v1/users/signup', {
+            name: userinfo.name,
+            email: userinfo.email,
+            password: userinfo.password,
+            passwordConfirm: userinfo.passwordConfirm
+        });
+        // console.log(resp.data.data.user);
+        thunkAPI.dispatch(addUser(resp.data.data.user));
+        thunkAPI.dispatch(saveLocalUser(resp.data.data));
+
+
+        thunkAPI.dispatch(controlAlert({type: 'success', message: 'Sign up successfully!'}));
+        // useAlert('success', 'Logged in successfully!');
+
+        return resp.data;
+    } catch (err) {
+        // console.log(err.response.data.message);
+        thunkAPI.dispatch(controlAlert({type: 'error', message: err.response.data.message}));
+        // useAlert('error', err.response.data.message);
+        return thunkAPI.rejectWithValue('something went wrong');
+    }
+});
+
 export const userLogout = createAsyncThunk('auth/userLogout', async(_, thunkAPI) => {
     try {
         await request('/api/v1/users/logout');
         thunkAPI.dispatch(clearUser());
         thunkAPI.dispatch(deleteLocalUser());
+        thunkAPI.dispatch(logout());
 
     } catch (err) {
         thunkAPI.dispatch(controlAlert({type: 'error', message: 'Error logging out! Try again.'}));
@@ -82,6 +111,9 @@ const authSlice = createSlice({
         },
         trunOfffirst: (state) => {
             state.firstLoad = false;
+        },
+        logout: (state) => {
+            state.isLoggedIn = false;
         }
     },
     extraReducers: {
@@ -97,14 +129,10 @@ const authSlice = createSlice({
             // console.log(state);
             state.isLoggedIn = true;
         },
-        [userLogout.fulfilled] : (state, action) => {
-            // console.log(state);
-            state.isLoggedIn = false;
-        }
     }
 });
 
 
-export const {isLogin, setTimer, trunOfffirst} = authSlice.actions;
+export const {isLogin, setTimer, trunOfffirst, logout} = authSlice.actions;
 
 export default authSlice.reducer;

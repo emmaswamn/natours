@@ -26,6 +26,7 @@ const ProtectedRoute = ({ children, isLoggedin }) => {
       return <Navigate to='/' />;
     }
 
+
   return children;
 };
 

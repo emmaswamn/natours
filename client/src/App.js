@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import SingleTour from './pages/tour/SingleTour';
 import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
+import Me from './pages/Me'
 import { useSelector, useDispatch} from 'react-redux';
 import { getLogStatu, trunOfffirst } from './features/auth/authSlice'
 import { useEffect } from 'react';
@@ -59,6 +60,12 @@ function App() {
         <Route path='signup' element={
             <ProtectedRoute isLoggedin={isLoggedIn}>
               <Signup />
+            </ProtectedRoute>
+          } 
+        />
+        <Route path='me' element={
+            <ProtectedRoute isLoggedin={isLoggedIn}>
+              <Me />
             </ProtectedRoute>
           } 
         />
