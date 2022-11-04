@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 
 const MapSec = ({tour}) => {
-    console.log(tour.locations);
+    // console.log(tour.locations);
     const loc1 = tour.locations[0].coordinates;
     return (
         <section className='section-map'>

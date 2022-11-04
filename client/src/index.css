@@ -1354,3 +1354,18 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.method-container {
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 3rem auto;
+}
+
+.global-class-name {
+  width: 3rem;
+  height: 3rem;
+  vertical-align: middle;
+  margin: 0.5rem;
+}
