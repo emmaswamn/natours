@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { isLogin, userLogout } from '../auth/authSlice'
 import request from '../../axios/custom';
 import { controlAlert} from '../alert/alertSlice'
+import { getLogStatu } from '../auth/authSlice'
 
 const initialState = {
     photo:'',
@@ -13,9 +14,9 @@ const initialState = {
 
 export const getLocalUser = createAsyncThunk('user/getLocalUser', async(_,thunkAPI) => {
     const data = JSON.parse(localStorage.getItem('user'));
+    console.log(data);
 
-
-    if (data )  {
+    if (data)  {
         thunkAPI.dispatch(isLogin());
         
         thunkAPI.dispatch(addUser(data.user));
@@ -27,7 +28,7 @@ export const getLocalUser = createAsyncThunk('user/getLocalUser', async(_,thunkA
 });
 
 export const saveLocalUser = createAsyncThunk('user/saveLocalUser', async(userInfo,thunkAPI) => {
-    
+    console.log(userInfo);
     localStorage.setItem('user', JSON.stringify(userInfo));
 
 });
@@ -41,25 +42,29 @@ export const deleteLocalUser = createAsyncThunk('user/deleteLocalUser', async(_,
 
 export const updateSettings = createAsyncThunk('user/updateSettings', async(userInfo, thunkAPI) => {
     try {
-        const url = 
-            userInfo.type === 'password'
-            ? '/api/v1/users/updateMyPassword'
-            : '/api/v1/users/updateMe';
+        const url = '/api/v1/users/updateMe';
+        console.log(userInfo);
 
+        let data = {};
+        data.name = userInfo.userName;
+        data.email = userInfo.userEmail;
+        if(userInfo.userPhoto) {
+            data.photo = userInfo.userPhoto;
+        } 
 
-
-        const res = await request({
+        const resp = await request({
             method: 'PATCH',
             url,
-            data:userInfo
+            data
         });
 
-        if (userInfo.type !== 'password') {
-            console.log(res);
-            // thunkAPI.dispatch(addUser(res.user));
-        }
+        console.log(resp.data.data);
 
-        thunkAPI.dispatch(controlAlert({type: 'success', message: `${userInfo.type.toUpperCase()} setting successfully!`}));
+        thunkAPI.dispatch(addUser(resp.data.data));
+
+        thunkAPI.dispatch(saveLocalUser({user: resp.data.data}));
+
+        thunkAPI.dispatch(controlAlert({type: 'success', message: `Update setting successfully!`}));
 
     } catch (err) {
         thunkAPI.dispatch(controlAlert({type: 'error', message: err.response.data.message}));
@@ -71,7 +76,7 @@ export const updatePassword = createAsyncThunk('user/updatePassword', async(data
     try {
         const url = '/api/v1/users/updateMyPassword';
 
-        console.log(data);
+        // console.log(data);
 
         await request({
             method: 'PATCH',

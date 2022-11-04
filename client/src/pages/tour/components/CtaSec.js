@@ -27,9 +27,9 @@ const CtaSec = ({tour}) => {
 
 const BookBtn = ({tour}) => {
     return( 
-        <button className='btn btn--green span-all-rows' id='book-tour' datatourid={`${tour.id}`}>
+        <Link className='btn btn--green span-all-rows' id='book-tour' to={`/booking/${tour.id}`}>
             Book tour now!
-        </button>
+        </Link>
     )
 };
 

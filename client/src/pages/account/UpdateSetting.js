@@ -1,5 +1,7 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react';
+import { updateSettings } from '../../features/user/userSlice'
+
 
 const UpdateSetting = () => {
     const {username, email, photo} = useSelector((store) => store.user);
@@ -7,16 +9,26 @@ const UpdateSetting = () => {
     const [userEmail, setUserEmail] = useState(email);
     const [userPhoto, setUserPhoto] = useState('');
 
+    // console.log(username, email, photo);
+
+    const dispatch = useDispatch();
 
     const handleUpload = (e) => {
-        console.log(e.target.files[0]);
-        setUserPhoto(e.target.files[0]);
+        // console.log(e.target.files[0]);
+        // setUserPhoto(e.target.files[0]);
+        
     }
+
+    const updateSet = (e) => {
+        e.preventDefault();
+
+        dispatch(updateSettings({userName, userEmail}));
+    };
 
     return (
         <>
             <h2 className="heading-secondary ma-bt-md">Your account settings</h2>
-            <form className="form form-user-data" id="form--update">
+            <form className="form form-user-data" id="form--update" onSubmit={updateSet}>
                 <div className="form__group">
                     <label htmlFor="name" className="form__label">Name</label>
                     <input type="text" required id="name" className="form__input"

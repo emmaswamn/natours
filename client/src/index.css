@@ -1328,3 +1328,29 @@ body {
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
 }
+
+.book__heading {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.book__summary-container {
+  margin: 3rem;
+  font-size: 1.8rem;
+  weight: 700;
+}
+
+.line-price {
+  margin: 2rem 0;
+  width: 100%;
+  height: 1px;
+  background-color: #e0e0e0;
+}
+
+.book__price {
+  margin: 2rem 0;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+}

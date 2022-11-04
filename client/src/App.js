@@ -7,6 +7,7 @@ import SingleTour from './pages/tour/SingleTour';
 import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 import Me from './pages/Me'
+import Booking from './pages/booking/Booking';
 import { useSelector, useDispatch} from 'react-redux';
 import { getLogStatu, trunOfffirst } from './features/auth/authSlice'
 import { useEffect } from 'react';
@@ -66,6 +67,13 @@ function App() {
         <Route path='me' element={
             <ProtectedRoute isLoggedin={isLoggedIn}>
               <Me />
+            </ProtectedRoute>
+          } 
+        />
+
+        <Route path='booking/:tourId' element={
+            <ProtectedRoute isLoggedin={isLoggedIn}>
+              <Booking />
             </ProtectedRoute>
           } 
         />
