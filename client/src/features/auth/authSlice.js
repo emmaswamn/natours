@@ -13,7 +13,7 @@ const initialState = {
 
 export const getLogStatu = createAsyncThunk('auth/getLogStatu', async(_,thunkAPI) => {
     try {
-        console.log('getLog');
+        // console.log('getLog');
         thunkAPI.dispatch(getLocalUser());
 
         // console.log('authlog', thunkAPI.getState().auth.isLoggedIn);

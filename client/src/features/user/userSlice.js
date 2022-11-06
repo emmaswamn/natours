@@ -18,6 +18,11 @@ export const getLocalUser = createAsyncThunk('user/getLocalUser', async(_,thunkA
 
     if (data)  {
         thunkAPI.dispatch(isLogin());
+
+        if(data.hasOwnProperty('user')) {
+            thunkAPI.dispatch(addUser(data.user));
+            return;
+        }
        
         thunkAPI.dispatch(addUser(data));
 
