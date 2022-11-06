@@ -15,7 +15,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
-const viewRouter = require('./routes/viewRoutes');
+// const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoute');
 const bookingController = require('./controllers/bookingController');
 const authRouter = require('./routes/authRoute');
@@ -23,8 +23,8 @@ const authRouter = require('./routes/authRoute');
 const app = express();
 
 app.enable('trust proxy');
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'pug');
+// app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
 // Set security HTTP headers
@@ -34,7 +34,7 @@ app.options('*', cors());
 
 // Serving static files
 // app.use(express.static(`${__dirname}/public`));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, './client/build')));
 
 // Further HELMET configuration for Content Security Policy (CSP)
 // Source: https://github.com/helmetjs/helmet
@@ -149,7 +149,7 @@ app.use((req, res, next) => {
 // app.delete('/api/v1/tours/:id', deleteTour);
 
 // 3) ROUTES
-app.use('/', viewRouter);
+// app.use('/', viewRouter);
 app.use('/api/v1', authRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
@@ -166,7 +166,9 @@ app.all('*', (req, res, next) => {
     // err.status = 'fail';
     // err.statusCode = 404;
 
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+    res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+
+    // next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
 app.use(globalErrorHandler);

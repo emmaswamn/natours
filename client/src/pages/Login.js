@@ -13,7 +13,7 @@ const Login = () => {
         e.preventDefault();
         setIsload(true);
         dispatch(userLogin({email,password}));
-        console.log('login');
+        // console.log('login');
         if (!isLoggedIn){ 
             setIsload(false)
         };

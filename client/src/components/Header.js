@@ -43,7 +43,7 @@ const Logout = ({photo, username}) => {
     const handleLogout = (e) => {
         e.preventDefault();
 
-        console.log('logout');
+        // console.log('logout');
         dispatch(userLogout());
 
     };

@@ -25,7 +25,7 @@ const Booking = () => {
             return;
         }
         if(method === 'stripe') {
-            console.log('in');
+            // console.log('in');
             dispatch(bookTour(tourId));
         }
     };

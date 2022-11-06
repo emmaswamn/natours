@@ -14,7 +14,8 @@
     "watch:js": "parcel watch --no-hmr ./public/js/index.js --dist-dir ./public/js/bundled",
     "build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled",
     "client": "npm start --prefix client",
-    "full": "concurrently --kill-others-on-fail \"npm run dev\" \" npm run client\""
+    "full": "concurrently --kill-others-on-fail \"npm run dev\" \" npm run client\"",
+    "build-client": "cd client && npm run build"
   },
   "author": "Emma Han",
   "license": "ISC",

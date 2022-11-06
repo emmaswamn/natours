@@ -14,7 +14,7 @@ const initialState = {
 
 export const getLocalUser = createAsyncThunk('user/getLocalUser', async(_,thunkAPI) => {
     const data = JSON.parse(localStorage.getItem('user'));
-    console.log(data);
+    // console.log(data);
 
     if (data)  {
         thunkAPI.dispatch(isLogin());
@@ -28,7 +28,7 @@ export const getLocalUser = createAsyncThunk('user/getLocalUser', async(_,thunkA
 });
 
 export const saveLocalUser = createAsyncThunk('user/saveLocalUser', async(userInfo,thunkAPI) => {
-    console.log(userInfo);
+    // console.log(userInfo);
     localStorage.setItem('user', JSON.stringify(userInfo));
 
 });
@@ -43,7 +43,7 @@ export const deleteLocalUser = createAsyncThunk('user/deleteLocalUser', async(_,
 export const updateSettings = createAsyncThunk('user/updateSettings', async(userInfo, thunkAPI) => {
     try {
         const url = '/api/v1/users/updateMe';
-        console.log(userInfo);
+        // console.log(userInfo);
 
         let data = {};
         data.name = userInfo.userName;
@@ -58,7 +58,7 @@ export const updateSettings = createAsyncThunk('user/updateSettings', async(user
             data
         });
 
-        console.log(resp.data.data);
+        // console.log(resp.data.data);
 
         thunkAPI.dispatch(addUser(resp.data.data));
 

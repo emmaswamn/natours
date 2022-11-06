@@ -25,7 +25,7 @@ const Signup = () => {
         setIsload(true);
         const name = firstname + ' ' + lastname;
         dispatch(userSignup({name, email,password, passwordConfirm}));
-        console.log('Signup');
+        // console.log('Signup');
         if (!isLoggedIn){ 
             setIsload(false)
         };

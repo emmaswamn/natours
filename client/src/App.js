@@ -20,7 +20,7 @@ function App() {
   const { firstLoad } = useSelector((store) => store.auth);
   
   if(firstLoad) {
-    console.count('first');
+    // console.count('first');
     dispatch(getLogStatu());
     
     dispatch(trunOfffirst());
@@ -30,7 +30,7 @@ function App() {
 
   useEffect(() => {
     if(!isLoggedIn) {
-      console.count('app');
+      // console.count('app');
       dispatch(getLogStatu());
     };
   })
@@ -44,14 +44,14 @@ function App() {
 
   // const getLog2 = useMemo(() => getLog(), [isLoggedIn]);
  
-  console.log('aoolog',isLoggedIn);
+  // console.log('aoolog',isLoggedIn);
   return (
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<SharedLayout />}>
         <Route index element={<Home />} />
         <Route path='login' element={
-            <ProtectedRoute isLoggedin={isLoggedIn}>
+            <ProtectedRoute isLoggedin={isLoggedIn} path={'login'}>
               <Login />
             </ProtectedRoute>
           } 
@@ -63,7 +63,7 @@ function App() {
           } 
         />
         <Route path='signup' element={
-            <ProtectedRoute isLoggedin={isLoggedIn}>
+            <ProtectedRoute isLoggedin={isLoggedIn} path={'signup'}>
               <Signup />
             </ProtectedRoute>
           } 
