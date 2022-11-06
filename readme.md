@@ -12,9 +12,9 @@ English:https://dev.to/emmaswamn/basic-usage-of-insomnia-4ibl
 ## Possible Improvements
 
 :white_check_mark: Implement a sign up form
+:white_check_mark: Refactor front-end pages using React
 
 - On tour detail page allow user to add the review
-- Implement "My Review" pages (using React)
 - Implement restriction to users review only tours they have booked
 - Implement maximum login attempts
 - Implement two-factor authentication
