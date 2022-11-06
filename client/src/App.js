@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 import Me from './pages/Me'
 import Booking from './pages/booking/Booking';
+import MyBook from './pages/booking/MyBook';
 import { useSelector, useDispatch} from 'react-redux';
 import { getLogStatu, trunOfffirst } from './features/auth/authSlice'
 import { useEffect } from 'react';
@@ -16,13 +17,16 @@ import { useEffect } from 'react';
 function App() {
   const dispatch = useDispatch();
 
-  const { isLoggedIn, firstLoad } = useSelector((store) => store.auth);
-
-  if(!isLoggedIn && firstLoad) {
+  const { firstLoad } = useSelector((store) => store.auth);
+  
+  if(firstLoad) {
     console.count('first');
     dispatch(getLogStatu());
+    
     dispatch(trunOfffirst());
   };
+
+  const { isLoggedIn } = useSelector((store) => store.auth);
 
   useEffect(() => {
     if(!isLoggedIn) {
@@ -77,13 +81,19 @@ function App() {
             </ProtectedRoute>
           } 
         />
+        <Route path='my-tours' element={
+            <ProtectedRoute isLoggedin={isLoggedIn}>
+              <MyBook />
+            </ProtectedRoute>
+          } 
+        />
 
         <Route path='notfound' element={<NotFound />} />
       </Route>
-      {/* <Route
+      <Route
         path="*"
         element={<Navigate to="/notfound" replace />}
-      /> */}
+      />
     </Routes>
   </BrowserRouter>
   );

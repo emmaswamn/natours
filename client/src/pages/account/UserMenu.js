@@ -1,5 +1,6 @@
 import icons from '../../assets/img/icons.svg'
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const UserMenu = () => {
     const { role } = useSelector((store) => store.user);
@@ -19,7 +20,7 @@ const UserMenu = () => {
 const NavItem = ({link, text, icon, active}) => {
     return (
         <li className={`${active ? 'side-nav--active' :''}`}>
-            <a href={`${link}`}>
+            <Link to={`${link}`}>
                 <svg     
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -28,7 +29,7 @@ const NavItem = ({link, text, icon, active}) => {
                     <use xlinkHref={`${icons}#icon-${icon}`}></use>
                 </svg>
                 {text}
-            </a>
+            </Link>
         </li>
     )
 };

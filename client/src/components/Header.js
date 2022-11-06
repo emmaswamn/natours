@@ -17,7 +17,7 @@ const Header = () => {
     //     dispatch(getLogStatu());
     //     console.count('header');
     //   },[])
-
+    // console.log(username, isLoggedIn, 'head');
     return (
         <header className='header'>
             <nav className='nav nav--tours'>

@@ -16,7 +16,9 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
         // success_url: `${req.protocol}://${req.get('host')}/?tour=${
         //     req.params.tourId
         // }&user=${req.user.id}&price=${tour.price}`,
-        success_url: `${req.protocol}://${req.get('host')}/my-tours?alert=booking`,
+        success_url: `${req.protocol}://${req.get(
+            'host'
+        )}/my-tours?alert=booking`,
         cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
         customer_email: req.user.email,
         client_reference_id: req.params.tourId,
@@ -28,7 +30,9 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
                         name: `${tour.name} Tour`,
                         description: tour.summary,
                         images: [
-                            `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`
+                            `${req.protocol}://${req.get('host')}/img/tours/${
+                                tour.imageCover
+                            }`
                         ]
                     },
                     unit_amount: tour.price * 100
@@ -82,6 +86,22 @@ exports.webhookCheckout = (req, res, next) => {
 
     res.status(200).json({ reveived: true });
 };
+
+exports.getMyBooking = catchAsync(async (req, res, next) => {
+    // 1) find all bookings
+    const bookings = await Booking.find({ user: req.params.userId });
+
+    // 2) find tours with the returned IDs
+    // const tourIDs = bookings.map(el => el.tour);
+    // const tours = await Tour.find({ _id: { $in: tourIDs } });
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            bookings
+        }
+    });
+});
 
 exports.createBooking = factory.createOne(Booking);
 exports.getBooking = factory.getOne(Booking);

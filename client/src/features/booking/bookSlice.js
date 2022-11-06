@@ -4,7 +4,8 @@ import { controlAlert} from '../alert/alertSlice'
 import {loadStripe} from '@stripe/stripe-js';
 
 const initialState = {
-    price: null
+    price: null,
+    mybookings: []
 };
 
 export const bookTour = createAsyncThunk('book/getTotalPrice', async(tourId,thunkAPI) => {
@@ -46,16 +47,41 @@ export const saveLocalPrice = createAsyncThunk('book/saveLocalPrice', async(_,th
     // 如果tour存在，那么直接使用tour.price, 如果没有，就是刷新过页面了，那么从本地储存获取
 });
 
+export const getMyBookings = createAsyncThunk('book/getMyBookings', async(userId,thunkAPI) => {
+    try {
+        const data = await request(`/api/v1/bookings/mybook/${userId}`);
+
+        const { bookings } = data.data.data;
+
+        return bookings;
+
+        // thunkAPI.dispatch(setBookings(bookings));
+
+    } catch (err) {
+        thunkAPI.dispatch(controlAlert({type: 'error', message: err.response.data.message}));
+        return thunkAPI.rejectWithValue('something went wrong');
+    }
+});
+
 const bookSlice = createSlice({
     name: 'book',
     initialState,
     reducers: {
         setPrice: (state, {payload}) => {
             state.price = payload;
+        },
+        setBookings: (state, {payload}) => {
+            state.mybookings = payload;
         }
+    },
+    extraReducers: {
+        [getMyBookings.fulfilled] : (state, {payload}) => {
+            // console.log(payload);
+            state.mybookings = payload;
+        },
     }
 });
 
-export const {setPrice} = bookSlice.actions;
+export const {setPrice, setBookings} = bookSlice.actions;
 
 export default bookSlice.reducer;

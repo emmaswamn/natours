@@ -18,8 +18,8 @@ export const getLocalUser = createAsyncThunk('user/getLocalUser', async(_,thunkA
 
     if (data)  {
         thunkAPI.dispatch(isLogin());
-        
-        thunkAPI.dispatch(addUser(data.user));
+       
+        thunkAPI.dispatch(addUser(data));
 
         return data;
     }
@@ -62,7 +62,7 @@ export const updateSettings = createAsyncThunk('user/updateSettings', async(user
 
         thunkAPI.dispatch(addUser(resp.data.data));
 
-        thunkAPI.dispatch(saveLocalUser({user: resp.data.data}));
+        thunkAPI.dispatch(saveLocalUser(resp.data.data));
 
         thunkAPI.dispatch(controlAlert({type: 'success', message: `Update setting successfully!`}));
 

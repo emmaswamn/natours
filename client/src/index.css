@@ -52,6 +52,7 @@ body {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  min-height: 60vh;
   position: relative;
 }
 
@@ -1202,6 +1203,7 @@ body {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   max-width: 80rem;
+
   text-align: center;
 }
 .error__title {
@@ -1225,6 +1227,7 @@ body {
   font-weight: 700;
   max-width: 50rem;
   margin: 0 auto;
+  text-align: center;
 }
 
 .login-form {
@@ -1329,6 +1332,7 @@ body {
   transform: translateY(-2px);
 }
 
+/* Booking */
 .book__heading {
   color: #fff;
   text-transform: uppercase;
@@ -1368,4 +1372,70 @@ body {
   height: 3rem;
   vertical-align: middle;
   margin: 0.5rem;
+}
+
+.back__el {
+  color: inherit;
+}
+
+/* section */
+.section-book {
+  padding: 5rem 0;
+}
+.section-center {
+  width: 90vw;
+  margin: 0 auto;
+  max-width: 1170px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 316px 316px 316px auto;
+  justify-items: center;
+  column-gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.content h5 {
+  color: hsl(210, 22%, 49%);
+  font-weight: 400;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+.content span {
+  width: 2rem;
+  height: 2rem;
+}
+
+.content hr {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 316px 316px 316px auto;
+  grid-template-rows: 75px;
+  gap: 3rem 1rem;
+  justify-items: center;
+  padding: 3rem auto;
+  border-bottom: 1px solid hsl(210, 22%, 49%);
+  align-items: center;
+}
+
+.wrapper h5,
+.wrapper a {
+  font-size: 1.8rem;
+}
+
+.wrapper .price {
+  font-size: 2rem;
+  display: block;
+  color: hsl(22, 31%, 52%);
+  font-weight: 400;
+}
+
+.wrapper a {
+  color: inherit;
 }
